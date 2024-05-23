@@ -37,44 +37,31 @@ public class MascotaFitxaKude extends MaskotaFitxaKudeAbstract implements I_Mask
 					}else {
 						Gato katu = new Gato(Integer.parseInt(palabras[1]), palabras[2], Integer.parseInt(palabras[3]),palabras[4],palabras[5],palabras[6]);
 						maskotaList.add(katu);	
-
-					}
-					
+					}	
 			}			
 			bR.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
-
-		
-		maskotaList.toString();
 		return maskotaList;
 	}
 
-	@Override
-	public void escribirEnTXT(ArrayList<Mascota> list) {
-		BufferedWriter escritor = null;
-		try {
-			escritor = new BufferedWriter(new FileWriter("MaskotakDatuak.txt"));
-            for (Mascota m1 : list) {
-                escritor.write(m1.toString());
-                escritor.newLine();
-            }
-            System.out.println("Mascotas escritas en el archivo MaskotakDatuak.txt con éxito.");
-        } catch (IOException e) {
-            System.err.println("Error al escribir en el archivo: " + e.getMessage());
-        } finally {
-        	try {
-				escritor.close();
-			} catch (IOException e) {
-
-
-				e.printStackTrace();
-			}
-        }
-	}
+	
+	
+	
+		@Override
+		public void escribirEnTXT(ArrayList<Mascota> list) {
+			try {
+				BufferedWriter escritor = new BufferedWriter(new FileWriter("MaskotakDatuak.txt"));
+	            for (Mascota m1 : list) {
+	                escritor.write(m1.toString());
+	                escritor.newLine();
+	            }
+	            System.out.println("Mascotas escritas en el archivo MaskotakDatuak.txt con éxito.");
+	            escritor.close();
+	        } catch (IOException e) {
+	            System.err.println("Error al escribir en el archivo: " + e.getMessage());
+	        }
+		}
 
 }

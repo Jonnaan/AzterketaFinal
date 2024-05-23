@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import control.metodos.*;
+import control.salbuespena.DNIBalidatu;
+import control.salbuespena.IleLuzeaBalidatu;
 import modelo.objetos.Gato;
 import modelo.objetos.Mascota;
 import modelo.objetos.Perro;
 
 public class Menu {
 
-	public void menuaAtera() throws IOException {
+	public void menuaAtera() throws IOException, DNIBalidatu, IleLuzeaBalidatu {
 		MascotaFitxaKude fitxaKudeatxailea = new MascotaFitxaKude();
 		ArrayList<Mascota> maskotaList = fitxaKudeatxailea.leerEnTXT();
 		Scanner sc = new Scanner(System.in);
@@ -70,13 +72,13 @@ public class Menu {
 			System.out.println("Sartu zure aukera");
 			String textua = sc.nextLine();
 			try {
-				aukera = Integer.valueOf(textua);
+				aukera = Integer.parseInt(textua);
 				if (aukera >= 1 && aukera <= 7)
 					error = false;
 
 			} catch (Exception ex) {
 				error = true;
-				System.err.println("Ez da zenbakia edo tartez lanpo");
+				System.err.println("Ez da zenbakia edo tartez kanpo");
 
 			}
 		} while (error);
@@ -134,11 +136,10 @@ public class Menu {
 
 	}
 
-	public void aldatuDatuak(ArrayList<Mascota> maskotaList, Mascota m, Scanner sc) {
+	public void aldatuDatuak(ArrayList<Mascota> maskotaList, Mascota m, Scanner sc) throws DNIBalidatu, IleLuzeaBalidatu {
 
 		for (Mascota maskota : maskotaList) {
 			if (maskota.equals(m)) {
-
 				System.out.println("Zein datu aldatu nahi duzu?");
 				System.out.println("1. Id-a");
 				System.out.println("2. Izena");
@@ -149,11 +150,11 @@ public class Menu {
 				System.out.println("7. Kolorea(Gato)  ");
 				System.out.println("8. Pelo(Gato)  ");
 
-				int aldaketa = sc.nextInt();
+				int aldaketa = BSalbuespena.BalidatuZenbakia(sc);
 				switch (aldaketa) {
 				case 1:
 					System.out.println("Zein da zure Id-a?");
-					int id = sc.nextInt();
+					int id = BSalbuespena.BalidatuZenbakia(sc);
 					maskota.setId(id);
 					break;
 				case 2:
@@ -163,13 +164,13 @@ public class Menu {
 					break;
 				case 3:
 					System.out.println("Zein da zure Adina?");
-					int adina = sc.nextInt();
+					int adina = BSalbuespena.BalidatuZenbakia(sc);
 					maskota.setAdina(adina);
 
 					break;
 				case 4:
 					System.out.println("Zein da zure NAN_Jabe?");
-					String nana = sc.nextLine();
+					String nana = BSalbuespena.nanEskatu(sc);
 					maskota.setNAN_Jabe(nana);
 					break;
 				case 5:
@@ -208,9 +209,8 @@ public class Menu {
 					break;
 				case 8:
 					if (maskota instanceof Gato) {
-						System.out.println("Zein da zure hile TAMAÑO (L/M/C)(GATO)?");
-						String hilea = sc.nextLine();
-						((Gato) maskota).setIleLuzea(hilea);
+						String ilea = BSalbuespena.BileIleLuzea(sc);
+						((Gato) maskota).setIleLuzea(ilea);
 
 					} else {
 						System.out.println("Eres un Perro no puedes");
@@ -222,22 +222,29 @@ public class Menu {
 		}
 	}
 
-	public ArrayList<Mascota> sortuMaskota(ArrayList<Mascota> maskotaList, Scanner sc ) {
+	public ArrayList<Mascota> sortuMaskota(ArrayList<Mascota> maskotaList, Scanner sc ) throws DNIBalidatu, IleLuzeaBalidatu {
 
 		System.out.println("QUE QUIERES CREAR?");
 		System.out.println("1-PERRO" + "\n 2-GATO");
-
-		int mota =  Integer.parseInt(sc.nextLine());
+	
+		int mota =  BSalbuespena.BalidatuZenbakia(sc);
+		
 		System.out.println("1. Id-a");
-		int id = Integer.parseInt(sc.nextLine());
+		int id = BSalbuespena.BalidatuZenbakia(sc);
+		for (Mascota mascota : maskotaList) {
+			if (mascota.getId() == id) {
+				System.err.println("Id hori badago jada, ezin da sartu");
+				return maskotaList;
+			}
+		}
 		System.out.println("2. Izena");
 		String izena = sc.nextLine();
 		
 		System.out.println("3. Adina(Osoa!!)");
-		int adina = Integer.parseInt(sc.nextLine());
+		int adina = BSalbuespena.BalidatuZenbakia(sc);
 		
 		System.out.println("4. NAN_Jabe");
-		String NAN_Jabe = sc.nextLine();
+		String NAN_Jabe = BSalbuespena.nanEskatu(sc);;
 
 		if (mota == 1) {
 
@@ -249,7 +256,7 @@ public class Menu {
 			String pulga = sc.nextLine();
 			if (pulga.equals("S")) {
 				Perro per = new Perro(id, izena, adina, NAN_Jabe, arraza, true);
-
+				
 				maskotaList.add(per);
 
 			} else {
@@ -263,11 +270,16 @@ public class Menu {
 			System.out.println("7. Kolorea(Gato)  ");
 			String kolorea = sc.nextLine();
 			System.out.println("8. Pelo(Gato)  ");
-			String pelo = sc.nextLine();
-			Gato katua = new Gato(id, izena, adina, NAN_Jabe, kolorea, pelo);
+			String ilea = BSalbuespena.BileIleLuzea(sc);
+			Gato katua = new Gato(id, izena, adina, NAN_Jabe, kolorea, ilea);
 			maskotaList.add(katua);
 
 		}
+		
 		return maskotaList;
 	}
+	
+	
+	
+	
 }
