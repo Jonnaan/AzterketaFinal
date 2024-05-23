@@ -1,0 +1,4 @@
+P ; 1 ; Lur ; 2 ; 1234567890K ; Aleman artzaia ; false
+G ; 2 ; Berlioz ; 3 ; 098765321X ; grisa ; L 
+G ; 3 ; GATITO ; 99 ; DNI ; VERDE Y MORADO ; L
+G ; 123 ; oasd ; 123 ; 12345678s ; azul ; c
