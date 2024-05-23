@@ -19,7 +19,7 @@ public class MascotaFitxaKude extends MaskotaFitxaKudeAbstract implements I_Mask
 	public ArrayList<Mascota> leerEnTXT() throws IOException {
 		ArrayList<Mascota> maskotaList = new ArrayList<Mascota>();
 		try {
-			BufferedReader bR = new BufferedReader(new FileReader("MaskotakDatuak.txt"));
+			BufferedReader bR = new BufferedReader(new FileReader(path+filename));
 			String linea;
 			while ((linea = bR.readLine()) != null) {
 				String[] palabras = linea.split(" ; ");

@@ -2,7 +2,7 @@ package control.metodos;
 
 public class MaskotaFitxaKudeAbstract {
 
-	private String filename;
-	private String path;
+	protected String filename = "MaskotakDatuak.txt";
+	protected String path = "" ;
 	
 }

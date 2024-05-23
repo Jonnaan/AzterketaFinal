@@ -1,0 +1,3 @@
+G, 2, Berlioz, 3, grisa, L ,098765321X
+P, 1, Lur, 2, Aleman artzaia, true ,1234567890K
+P, 2, wa, 22, , false ,12345678M
