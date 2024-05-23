@@ -1,0 +1,2 @@
+Pertsona [nan=12345678I, izena=Mirar, eguna=23, hilabetea=5]Ikaslea [matrikula=M99, taldea=dam]
+Pertsona [nan=12345678I, izena=Mirar, eguna=23, hilabetea=5]Ikaslea [matrikula=M99, taldea=dam]
